@@ -1,0 +1,5 @@
+<ng-container *ngFor="let zone of zones; let i = index">
+
+    <app-harvesting-area-card [zone]="zone.zone" [src]="zone.src"></app-harvesting-area-card>
+    <mat-divider *ngIf="i < zones.length - 1 "></mat-divider>
+</ng-container>

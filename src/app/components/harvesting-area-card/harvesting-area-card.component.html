@@ -1,0 +1,21 @@
+<mat-card class="example-card">
+  <mat-card-header>
+    <div mat-card-avatar class="example-header-image">
+      <mat-icon (click)="toggleCollapse()" class="mat-card-avatar"> {{isCollapsed ? 'expand_more' : 'expand_less'}}
+      </mat-icon>
+
+    </div>
+    <mat-card-title [style]="'margin-top: 4px;'"> {{zone}}</mat-card-title>
+  </mat-card-header>
+  <ng-container *ngIf="!isCollapsed">
+    <img mat-card-image [src]="'./assets/' + src" alt="Photo of a Shiba Inu">
+    <mat-card-content>
+      <p>
+        Possible finds: {{getHerbsStringByZone(zone)}}
+      </p>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-button (click)="onClickGetRandomHerb(zone)"> HARVEST</button>
+    </mat-card-actions>
+  </ng-container>
+</mat-card>

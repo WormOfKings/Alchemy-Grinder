@@ -1,0 +1,112 @@
+<mat-card class="example-card">
+    <mat-card-header>
+      <div mat-card-avatar class="example-header-image">
+        <mat-icon (click)="changeDisplayModeAlchemyWorkbench()" class="mat-card-avatar">
+          {{this.craftingService.displayModeAlchWork ?
+          'expand_more' : 'expand_less'}}
+        </mat-icon>
+
+      </div>
+      <mat-card-title [style]="'margin-top: 4px;'"> Alchemy worbench </mat-card-title>
+    </mat-card-header>
+    <ng-container *ngIf="this.craftingService.displayModeAlchWork">
+      <img class="workbenchImg" mat-card-image src='./assets/alchtable.jpg' alt="Photo of a Shiba Inu">
+      <mat-card-content>
+        <div>
+          <span *ngFor="let _ of [].constructor(5) ; let i=index">
+            <img
+              [src]="this.saveService.craftingInfo.alchWorkbenchItems[i] ? this.saveService.craftingInfo.alchWorkbenchItems[i].image : './assets/empty_slot.jfif'"
+              (click)="this.craftingService.removeItemAlchemyWorkbench(i)"
+              matTooltip={{getNameOrEmptyString(this.saveService.craftingInfo.alchWorkbenchItems[i])}} [matTooltipPosition]="'above'">
+            <label label class="itemQuantity">{{this.saveService.craftingInfo.alchWorkbenchItems[i] ?
+              this.saveService.craftingInfo.alchWorkbenchItems[i].quantity : ''}}</label>
+          </span>
+          <button mat-mini-fab color="warn" class="craftButton" (click)="this.onClickCraftAlchemyWorkbench()"
+            [disabled]="!craftingService.isAlchemyCraftAllowed() ? true : null">
+            <mat-icon>arrow_forward</mat-icon>
+          </button>
+          <span>
+            <img
+              [src]="this.saveService.craftingInfo.alchWorkbenchItemResult ? this.saveService.craftingInfo.alchWorkbenchItemResult.image : './assets/empty_slot.jfif'"
+              (click)="this.craftingService.removeItemAlchemyWorkbenchResult()"
+              matTooltip={{getNameOrEmptyString(this.saveService.craftingInfo.alchWorkbenchItemResult)}} [matTooltipPosition]="'above'">
+            <label label class="itemQuantity">{{this.saveService.craftingInfo.alchWorkbenchItemResult ?
+              this.saveService.craftingInfo.alchWorkbenchItemResult.quantity : ''}}</label>
+          </span>
+        </div>
+
+      </mat-card-content>
+    </ng-container>
+  </mat-card>
+
+<mat-card class="example-card">
+  <mat-card-header>
+    <div mat-card-avatar class="example-header-image">
+      <mat-icon (click)="changeDisplayModeMortar()" class="mat-card-avatar"> {{this.craftingService.displayModeMortar ?
+        'expand_more' : 'expand_less'}}
+      </mat-icon>
+    </div>
+    <mat-card-title [style]="'margin-top: 4px;'"> Mortar </mat-card-title>
+  </mat-card-header>
+  <ng-container *ngIf="this.craftingService.displayModeMortar">
+    <img class="workbenchImg" mat-card-image src='./assets/mortarnpestle.jpg' alt="Photo of a Shiba Inu">
+    <mat-card-content>
+      <div>
+        <span>
+          <img [src]="getImageOrEmptySlot(saveService.craftingInfo.mortarItem)"
+            (click)="this.craftingService.removeItemFromMortar()"
+            matTooltip={{getNameOrEmptyString(saveService.craftingInfo.mortarItem)}} [matTooltipPosition]="'above'">
+          <label class="itemQuantity">{{getQuantityOrEmptyStringIfEmpty(saveService.craftingInfo.mortarItem)}}</label>
+        </span>
+        <button mat-mini-fab color="warn" class="craftButton" (click)="this.craftingService.craftEssence()"
+          [disabled]="!craftingService.isMortarCraftAllowed() ? true : null">
+          <mat-icon>arrow_forward</mat-icon>
+        </button>
+        <span>
+          <img [src]="getImageOrEmptySlot(saveService.craftingInfo.mortarItemResult)"
+            (click)="this.craftingService.removeItemFromMortarResult()"
+            matTooltip={{getNameOrEmptyString(saveService.craftingInfo.mortarItemResult)}} [matTooltipPosition]="'above'">
+          <label
+            class="itemQuantity">{{getQuantityOrEmptyStringIfEmpty(saveService.craftingInfo.mortarItemResult)}}</label>
+        </span>
+      </div>
+    </mat-card-content>
+  </ng-container>
+</mat-card>
+
+<mat-card class="example-card">
+  <mat-card-header>
+    <div mat-card-avatar class="example-header-image">
+      <mat-icon (click)="changeDisplayModeBarrel()" class="mat-card-avatar"> {{this.craftingService.displayModeBarrel ?
+        'expand_more' : 'expand_less'}}
+      </mat-icon>
+
+    </div>
+    <mat-card-title [style]="'margin-top: 4px;'"> Barrel </mat-card-title>
+  </mat-card-header>
+  <ng-container *ngIf="this.craftingService.displayModeBarrel">
+    <img class="workbenchImg" mat-card-image src='./assets/alchstation.jpg' alt="Photo of a Shiba Inu">
+    <mat-card-content>
+      <div *ngIf="this.saveService.gameInfo.craftingTimers.length == 0">
+        <span>
+          <img [src]="getImageOrEmptySlot(saveService.craftingInfo.barrelItem)"
+            (click)="this.craftingService.removeItemFromBarrel()"
+            matTooltip={{getNameOrEmptyString(saveService.craftingInfo.barrelItem)}} [matTooltipPosition]="'above'">
+          <label class="itemQuantity">{{getQuantityOrEmptyStringIfEmpty(saveService.craftingInfo.barrelItem)}}</label>
+        </span>
+        <button mat-mini-fab color="warn" class="craftButton" (click)="this.onClickCraftBarrel()"
+          [disabled]="!craftingService.isBarrelCraftAllowed() ? true : null">
+          <mat-icon>arrow_forward</mat-icon>
+        </button>
+        <span>
+          <img [src]="getImageOrEmptySlot(saveService.craftingInfo.barrelItemResult)"
+            (click)="this.craftingService.removeItemFromBarrelResult()"
+            matTooltip={{getNameOrEmptyString(saveService.craftingInfo.barrelItemResult)}} [matTooltipPosition]="'above'">
+          <label
+            class="itemQuantity">{{getQuantityOrEmptyStringIfEmpty(saveService.craftingInfo.barrelItemResult)}}</label>
+        </span>
+      </div>
+      <div *ngIf="this.saveService.gameInfo.craftingTimers.length !== 0"><p>Processing...</p></div>
+    </mat-card-content>
+  </ng-container>
+</mat-card>

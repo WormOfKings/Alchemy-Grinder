@@ -1,0 +1,25 @@
+<span>
+  <img [src]="item.image" alt="" (click)="changeDisplayMode()">
+  <label class="itemQuantity">{{item.quantity}}</label>
+</span>
+<span class="itemMenu" *ngIf="isTooltipOpen">
+  <label class="itemName">{{item.name}}</label>
+  <p>{{item.description}}</p>
+  <label class="itemCost" *ngIf="item.cost >0">Cost: {{item.cost}}</label>
+  <div class="inventoryButtons">
+    <button *ngIf="(item.keywords.includes('herb') && this.craftingService.displayModeMortar) || (item.keywords.includes('ingridient') &&
+     (this.craftingService.displayModeBarrel || this.craftingService.displayModeAlchWork))"
+      (click)="addItemToWorkbench(item, countToInteract.value)" mat-mini-fab color="primary">
+      <mat-icon>share</mat-icon>
+    </button>
+    <button *ngIf="item.cost >0" mat-mini-fab color="primary" (click)="onClickSellItem(item, countToInteract.value)">
+      <mat-icon>attach_money</mat-icon>
+    </button>
+    <button mat-mini-fab color="primary" (click)="this.onClickDiscardItem(item, countToInteract.value)">
+      <mat-icon>delete</mat-icon>
+    </button>
+  </div>
+  <mat-form-field class="inputField" [style.width.px]=38>
+    <input matInput [formControl]="countToInteract" type="number" min="1" max="999">
+  </mat-form-field>
+</span>

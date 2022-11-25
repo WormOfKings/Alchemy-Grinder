@@ -1,0 +1,35 @@
+<header>
+  <label id="coinDisplay">Coin: {{this.saveService.gameInfo.coins}}</label>
+  <label *ngIf="this.timeService.currentTime$ | async as currentTime" id="clockDisplay">Day {{currentTime.days}} Time:
+    {{currentTime.hours}}:{{currentTime.minutes}}</label>
+</header>
+
+<main class="main">
+  <mat-tab-group class="crafting-harvesting">
+    <mat-tab label="Harvesting">
+      <div class="harvesting">
+        <app-harvesting> </app-harvesting>
+      </div>
+    </mat-tab>
+
+    <mat-tab label="Crafting">
+
+      <div class="crafting">
+        <app-crafting> </app-crafting>
+      </div>
+    </mat-tab>
+
+  </mat-tab-group>
+
+  <div class="spacing"></div>
+
+  <div class="inventory">
+    <h2 class="column-header">Inventory</h2>
+    <div class="inventoryItems" *ngFor="let inventoryItem of saveService.gameInfo.inventory; let i = index">
+      <inventory-item [item]="inventoryItem" [index]="i" [isTooltipOpen]="currentOpenedIndex == i"
+        (openTooltip)="onOpenTooltip($event, i)"> </inventory-item>
+    </div>
+  </div>
+
+</main>
+<router-outlet></router-outlet>
